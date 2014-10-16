@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Gungine", "Gungine\Gungine.vcxproj", "{D9B89642-DA37-4987-A9D2-16D3D747A27C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assignment1Demo", "Assignment1Demo\Assignment1Demo.vcxproj", "{19FA2805-5156-4883-8102-1C4CE7BE443D}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Assignment2Demo", "Assignment2Demo\Assignment2Demo.vcxproj", "{79912482-4203-4EAF-B19A-5100F7AA7E78}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D9B89642-DA37-4987-A9D2-16D3D747A27C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D9B89642-DA37-4987-A9D2-16D3D747A27C}.Debug|Win32.Build.0 = Debug|Win32
+		{D9B89642-DA37-4987-A9D2-16D3D747A27C}.Release|Win32.ActiveCfg = Release|Win32
+		{D9B89642-DA37-4987-A9D2-16D3D747A27C}.Release|Win32.Build.0 = Release|Win32
+		{19FA2805-5156-4883-8102-1C4CE7BE443D}.Debug|Win32.ActiveCfg = Debug|Win32
+		{19FA2805-5156-4883-8102-1C4CE7BE443D}.Debug|Win32.Build.0 = Debug|Win32
+		{19FA2805-5156-4883-8102-1C4CE7BE443D}.Release|Win32.ActiveCfg = Release|Win32
+		{19FA2805-5156-4883-8102-1C4CE7BE443D}.Release|Win32.Build.0 = Release|Win32
+		{79912482-4203-4EAF-B19A-5100F7AA7E78}.Debug|Win32.ActiveCfg = Debug|Win32
+		{79912482-4203-4EAF-B19A-5100F7AA7E78}.Debug|Win32.Build.0 = Debug|Win32
+		{79912482-4203-4EAF-B19A-5100F7AA7E78}.Release|Win32.ActiveCfg = Release|Win32
+		{79912482-4203-4EAF-B19A-5100F7AA7E78}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
