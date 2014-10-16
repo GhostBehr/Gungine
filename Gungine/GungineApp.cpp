@@ -2,25 +2,42 @@
 using namespace gungine;
 
 GungineApp* GungineApp::instance = NULL;
+int GungineApp::winWidth = 0;
+int GungineApp::winHeight = 0;
 
-GungineApp::GungineApp() {
+GungineApp::GungineApp(int width, int height) {
 	startFunc = NULL;
 	preRenderFunc = NULL;
 	renderFunc = NULL;
 	postRenderFunc = NULL;
 	endFunc = NULL;
 
+	winWidth = width;
+	winHeight = height;
+	running = true;
+
 	window = NULL;
 	renderer = new OpenGLRenderer();
 }
 
-void GungineApp::createWindow() {
-	window = new Win32Window();
-	window->create();
+void GungineApp::setWindowSize(int width, int height) {
+	if (winWidth == 0 || winHeight == 0) {
+		winWidth = width;
+		winHeight = height;
+	}
 }
+
+void GungineApp::mainLoop() {
+	window = new Win32Window();
+	window->create(winWidth, winHeight);
+}
+
 
 /// Base function calls to pointers
 void GungineApp::onStart() {
+	renderer->init();
+	renderer->setWindowSize(winWidth, winHeight);
+	
 	if (startFunc) {
 		startFunc();
 	}
@@ -50,6 +67,8 @@ void GungineApp::onEnd() {
 	if (endFunc) {
 		endFunc();
 	}
+
+	running = false;
 }
 
 

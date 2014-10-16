@@ -12,12 +12,14 @@ namespace gungine {
 	private:
 		static GungineApp* instance;
 
-		GungineApp();
+		GungineApp(int width, int height);
 		GungineApp(const GungineApp& lm) { }
 		void operator=(const GungineApp& lm) { }
 
 		typedef void(*callback_func)();
 		callback_func startFunc, preRenderFunc, renderFunc, postRenderFunc, endFunc;
+
+		static int winWidth, winHeight;
 
 		GungineWindow* window;
 		GungineRenderer* renderer;
@@ -25,12 +27,16 @@ namespace gungine {
 	public:
 		static GungineApp* get() {
 			if (instance == NULL) {
-				instance = new GungineApp();
+				instance = new GungineApp(winWidth, winHeight);
 			}
 			return instance;
 		}
 
-		void createWindow();
+		bool running;
+
+		static void setWindowSize(int width, int height);
+
+		void mainLoop();
 
 		/// Base function calls to pointers
 		void onStart();

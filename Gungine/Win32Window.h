@@ -11,7 +11,7 @@
 namespace gungine {
 	class Win32Window : public GungineWindow {
 	public:
-		virtual int create();
+		virtual int create(int width, int height);
 		static int setupPixelFormat(HDC hdc);
 	};
 

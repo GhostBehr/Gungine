@@ -4,7 +4,7 @@
 TCHAR TITLE_BAR_TEXT[] = "Gungine";
 TCHAR WINDOW_CLASS_NAME[] = "Gunegine Win32 Window Class";
 
-int gungine::Win32Window::create() {
+int gungine::Win32Window::create(int width, int height) {
 	
 	// Current instance of application
 	HINSTANCE hInstance = GetModuleHandle(NULL);
@@ -41,7 +41,7 @@ int gungine::Win32Window::create() {
 		TITLE_BAR_TEXT,
 		WS_OVERLAPPEDWINDOW,
 		CW_USEDEFAULT, CS_OWNDC,
-		500, 100,
+		width, height,
 		NULL,
 		NULL,
 		hInstance,
@@ -59,12 +59,25 @@ int gungine::Win32Window::create() {
 	
 	/// Listen for messages from OS
 	MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0)) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+	HDC hdc = GetDC(hWnd);
+	GungineApp* app = GungineApp::get();
+	while (app->running) {
+		//std::cout << "LOOP\n";
+
+		while (PeekMessage(&msg, NULL, 0, 0, PM_NOREMOVE)) {
+			GetMessage(&msg, NULL, 0, 0);
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		app->preRender();
+		app->render();
+		app->postRender();
+		SwapBuffers(hdc);
 	}
 
-	return (int)msg.wParam;
+	//return (int)msg.wParam;
+	return 0;
 }
 
 int gungine::Win32Window::setupPixelFormat(HDC hdc) {
@@ -101,7 +114,7 @@ int gungine::Win32Window::setupPixelFormat(HDC hdc) {
 LRESULT CALLBACK gungine::wndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) {
 	static HDC hdc = NULL;
 	static HGLRC contextH = NULL;
-	//TCHAR greeting[] = _T("barts");
+	GungineApp* app = GungineApp::get();
 	std::ostringstream ss;
 
 	switch (msg) {
@@ -134,24 +147,23 @@ LRESULT CALLBACK gungine::wndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
 		//MessageBoxA(0, (char*)glGetString(GL_VERSION), "OPENGL VERSION", 0);
 		///////////////////////////////////////////////////////////////////////////////
 
-		GungineApp::get()->onStart();
+		app->onStart();
 		break;
 
 	case WM_PAINT:
 		PAINTSTRUCT ps;
 		BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
-		SwapBuffers(hdc);
 		break;
 
 	case WM_DESTROY:
 	case WM_QUIT:
 	case WM_CLOSE:
-		//wglMakeCurrent(hdc, NULL);
-		//wglDeleteContext(contextH);
+		wglMakeCurrent(hdc, NULL);
+		wglDeleteContext(contextH);
 		PostQuitMessage(0);
 
-		GungineApp::get()->onEnd();
+		app->onEnd();
 		break;
 
 		/// Consider using these messages in the future
@@ -183,9 +195,8 @@ LRESULT CALLBACK gungine::wndProc(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lPa
 		break;
 	
 	default:
-		return DefWindowProc(hWnd, msg, wParam, lParam);
 		break;
 	}
 
-	return 0;
+	return DefWindowProc(hWnd, msg, wParam, lParam);
 }

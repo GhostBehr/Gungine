@@ -10,6 +10,8 @@ namespace gungine {
 	public:
 		OpenGLRenderer() { }
 
+		virtual void init();
+		virtual void setWindowSize(int width, int height);
 		virtual void renderPrimitive(GraphicPrimitiveType type);
 	};
 }

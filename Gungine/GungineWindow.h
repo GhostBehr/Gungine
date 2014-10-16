@@ -11,6 +11,7 @@ namespace gungine {
 	public:
 		GungineWindow() { }
 
-		virtual int create() = 0;
+		virtual int create(int width, int height) = 0;
+
 	};
 }

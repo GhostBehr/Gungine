@@ -8,19 +8,16 @@ using namespace gungine;
 GungineApp* app;
 
 void onStart() {
-	std::cout << "stuurt";
-	app->render();
+	std::cout << "Starting...\n";
 }
 
 int main() {
+	GungineApp::setWindowSize(500, 400);
 	app = GungineApp::get();
 
 	app->registerStartFunc(onStart);
 
-	app->createWindow();
-
-	//GungineWindow* window = new Win32Window();
-	//window->create();
+	app->mainLoop();
 
 	//cin.get();
 	return 0;

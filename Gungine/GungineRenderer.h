@@ -13,9 +13,13 @@ namespace gungine {
 	};
 
 	class GungineRenderer {
+	protected:
+		int winWidth, winHeight;
 	public:
 		GungineRenderer() { }
 
+		virtual void init() = 0;
+		virtual void setWindowSize(int width, int height) = 0;
 		virtual void renderPrimitive(GraphicPrimitiveType type) = 0;
 	};
 
