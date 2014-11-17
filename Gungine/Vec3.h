@@ -115,8 +115,6 @@ struct Vec3 {
 		return ss.str();
 	}
 
-	// These are here because they seem more like qualities of the vector than math operations
-
 	// Return magnitude of vector
 	inline const float mag() const {
 		return std::sqrtf(x * x + y * y + z * z);
@@ -141,4 +139,24 @@ struct Vec3 {
 // Multiply Vec3 by scalar in either direction
 inline const Vec3 operator* (const float s, const Vec3& v) {
 	return v * s;
+}
+
+// Dot product of two vectors
+static inline float dot(const Vec3& a, const Vec3& b) {
+	return a.x * b.x + a.y * b.y + a.z * b.z;
+}
+
+// Crss product of two vectors
+static inline const Vec3 cross(const Vec3& a, const Vec3& b) {
+	return Vec3(a.y * b.z - a.z * b.y, a.z * b.x - a.x * b.z, a.x * b.y - a.y * b.x);
+}
+
+// Vector projection of a onto b
+static const Vec3 projectionVec(const Vec3& a, const Vec3& b) {
+	return b * (dot(a, b) / dot(b, b));
+}
+
+// Distance between two vectors
+static float distance(const Vec3& a, const Vec3& b) {
+	return (a - b).mag();
 }
